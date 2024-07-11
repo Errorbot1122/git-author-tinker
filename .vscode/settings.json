@@ -1,0 +1,10 @@
+{
+    "emeraldwalk.runonsave": {
+        "commands": [
+            {
+                "match": ".sh",
+                "cmd": "cat ${file} | tr -d '\r' > ${file}"
+            },
+        ]
+    }
+}
