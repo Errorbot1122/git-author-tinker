@@ -17,7 +17,7 @@ responed_yes () {
 clean_exit () {
     echo
 
-    read -pr "Do you want to keep the cloned repository? (y/n) " should_keep
+    read -rp "Do you want to keep the cloned repository? (y/n) " should_keep
     if responed_yes "$should_keep"; then exit "$1"; fi  # Exit immediately
 
     rm -rf "$download_dir/${repo_name:?}"*
@@ -31,7 +31,7 @@ clean_error () {
 }
 
 
-read -pr "Enter the URL of the GIT Repository: " repo_url
+read -rp "Enter the URL of the GIT Repository: " repo_url
 if [[ -z $repo_url ]]; then clean_error "Please enter a url!"; fi
 echo
 
@@ -54,9 +54,9 @@ echo
 cd "$download_dir/$repo_name"* || clean_error "Could not Change Directory to \"$download_dir/$repo_name\"!"
 if [[ $? -ne 0 ]]; then clean_exit $?; fi
 
-read -pr "What was the email for the old account? " old_email 
-read -pr "What is the fixed email? " fixed_email
-read -pr "What is the fixed username? " fixed_name
+read -rp "What was the email for the old account? " old_email 
+read -rp "What is the fixed email? " fixed_email
+read -rp "What is the fixed username? " fixed_name
 echo
 
 git filter-branch --env-filter "
@@ -77,7 +77,7 @@ fi
 if [[ $? -ne 0 ]]; then clean_exit $?; fi
 echo
 
-read -pr "Review new commit history? (y/n) " should_reveiw
+read -rp "Review new commit history? (y/n) " should_reveiw
 echo
 if responed_yes "$should_reveiw"; then
     git log
@@ -85,7 +85,7 @@ if responed_yes "$should_reveiw"; then
     echo
 fi
 
-read -pr "Do you want to push these changes? (y/n) " should_push
+read -rp "Do you want to push these changes? (y/n) " should_push
 echo
 if responed_yes "$should_push"; then
     git push --force --tags origin 'refs/heads/*'
