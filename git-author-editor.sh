@@ -64,6 +64,7 @@ if [[ $? -ne 0 ]]; then clean_exit $?; fi
 echo
 
 read -p "Review new commit history? (y/n) " should_reveiw
+echo
 if responed_yes "$should_reveiw"; then
     git log
     echo
@@ -71,6 +72,7 @@ if responed_yes "$should_reveiw"; then
 fi
 
 read -p "Do you want to push these changes? (y/n) " should_push
+echo
 if responed_yes "$should_push"; then
     git push --force --tags origin 'refs/heads/*'
     clean_exit 0
