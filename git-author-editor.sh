@@ -2,10 +2,7 @@
 download_dir="$PWD"
 repo_name="\""
 
-clean_exit () {
-    rm -rf $download_dir/$repo_name*
-    exit $1;
-}
+trap clean_exit INT
 
 responed_yes () {
     if [[ "$1" =~ ^(yes|y)$ ]]; then
@@ -14,6 +11,15 @@ responed_yes () {
     fi
 
     false
+}
+
+
+clean_exit () {
+    echo
+    read -p "Do you want to keep the cloned repository? (y/n) " should_keep
+    if responed_yes $should_keep; then exit $1; fi  # Exit immediately
+    rm -rf "$download_dir/${repo_name:?}"*
+    exit $1;
 }
 
 
